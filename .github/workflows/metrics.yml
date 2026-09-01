@@ -15,28 +15,37 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           user: SterlinkIng89
           template: classic
-          
-          # Base limpia: solo muestra actividad general y repositorios relevantes
-          base: header, activity, repositories
-          base_indepth: yes
           config_timezone: America/Mexico_City
-          config_order: base.header, languages, lines, achievements
           
-          # Lenguajes compactos y estilizados
+          # Base: Cabecera y actividad general limpia
+          base: header, activity, repositories
+          
+          # 1. Languages (Más usados y usados recientemente)
           plugin_languages: yes
-          plugin_languages_sections: most-used
-          plugin_languages_details: percentage
-          plugin_languages_limit: 6
+          plugin_languages_sections: most-used, recently-used
+          plugin_languages_details: percentage, lines
+          plugin_languages_limit: 8
+          plugin_languages_recent_days: 14
           
-          # Líneas de código añadidas/eliminadas
+          # 2. Activity & Charts (Historial y gráficas de actividad reciente)
+          plugin_activity: yes
+          plugin_activity_limit: 5
+          plugin_activity_days: 14
+          plugin_activity_filter: all
+          plugin_activity_charts: yes
+          
+          # 3. Habits (Hábitos, gráficos de tiempo y "Mildly interesting facts")
+          plugin_habits: yes
+          plugin_habits_from: 200
+          plugin_habits_days: 14
+          plugin_habits_facts: yes
+          plugin_habits_charts: yes
+          
+          # 4. Starred Topics
+          plugin_topics: yes
+          plugin_topics_mode: starred
+          plugin_topics_limit: 12
+          
+          # 5. Líneas de código
           plugin_lines: yes
           plugin_lines_history_limit: 1
-          
-          # Desactivamos habits e isocalendar para evitar errores y saturación visual
-          plugin_habits: no
-          plugin_isocalendar: no
-          
-          # Logros de GitHub en formato compacto
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_achievements_secrets: yes
