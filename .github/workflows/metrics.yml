@@ -1,8 +1,6 @@
 name: Metrics
 on:
-  # Se ejecuta automáticamente cada 24 horas
   schedule: [{cron: "0 0 * * *"}]
-  # Permite ejecutarlo manualmente desde la pestaña Actions
   workflow_dispatch:
   push: {branches: ["main", "master"]}
 
@@ -17,20 +15,28 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           user: SterlinkIng89
           template: classic
-          base: header, activity, community, repositories, metadata
+          
+          # Base limpia: solo muestra actividad general y repositorios relevantes
+          base: header, activity, repositories
+          base_indepth: yes
           config_timezone: America/Mexico_City
-
-          # Plugins destacados
+          config_order: base.header, languages, lines, achievements
+          
+          # Lenguajes compactos y estilizados
           plugin_languages: yes
-          plugin_languages_details: bytes-size, percentage
-          plugin_languages_limit: 8
-
-          plugin_habits: yes
-          plugin_habits_from: 200
-          plugin_habits_days: 14
-          plugin_habits_facts: yes
-          plugin_habits_charts: yes
-
+          plugin_languages_sections: most-used
+          plugin_languages_details: percentage
+          plugin_languages_limit: 6
+          
+          # Líneas de código añadidas/eliminadas
           plugin_lines: yes
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
+          plugin_lines_history_limit: 1
+          
+          # Desactivamos habits e isocalendar para evitar errores y saturación visual
+          plugin_habits: no
+          plugin_isocalendar: no
+          
+          # Logros de GitHub en formato compacto
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+          plugin_achievements_secrets: yes
