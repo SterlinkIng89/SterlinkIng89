@@ -15,38 +15,34 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           user: SterlinkIng89
           template: classic
+          base: header, activity, community, repositories, metadata
           config_timezone: America/Mexico_City
           
-          # Base: Cabecera y actividad general limpia
-          base: header, activity, repositories
-          
-          # 1. Languages (Más usados y usados recientemente)
+          # 1. Languages (Most used and recently used)
           plugin_languages: yes
           plugin_languages_sections: most-used, recently-used
           plugin_languages_details: percentage, lines
           plugin_languages_limit: 8
           plugin_languages_recent_days: 14
+          plugin_languages_recent_load: 300
           
-          # 2. Activity & Charts (Historial y gráficas de actividad reciente)
+          # 2. Activity & Charts (Recent activity timeline and graphs)
           plugin_activity: yes
           plugin_activity_limit: 5
           plugin_activity_days: 14
           plugin_activity_filter: all
           plugin_activity_charts: yes
           
-          # 3. Habits (Hábitos, gráficos de tiempo y "Mildly interesting facts")
+          # 3. Habits (Habits charts and mildly interesting facts)
           plugin_habits: yes
           plugin_habits_from: 200
           plugin_habits_days: 14
           plugin_habits_facts: yes
           plugin_habits_charts: yes
+          plugin_habits_charts_type: classic
           
           # 4. Starred Topics
           plugin_topics: yes
           plugin_topics_mode: starred
           plugin_topics_limit: 12
-          
-          # 5. Líneas de código
-          plugin_lines: yes
-          plugin_lines_sections: base, repositories, history
-          plugin_lines_history_limit: 1
+          plugin_topics_sort: stars
